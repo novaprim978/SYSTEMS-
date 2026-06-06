@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سيستم كاشير ومخزن المحل المتكامل - نسخة الحقوق</title>
+    <title>سيستم المبيعات المتكامل</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -86,7 +86,7 @@
         .invoice-buttons-container {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         button.invoice-big-yellow-btn {
@@ -95,10 +95,11 @@
             border: none;
             cursor: pointer;
             font-weight: bold;
-            font-size: 20px;
-            padding: 15px;
+            font-size: 22px;
+            padding: 18px;
             flex: 2;
             border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         button.invoice-big-yellow-btn:hover { background-color: #e0a800; }
 
@@ -108,10 +109,11 @@
             border: none;
             cursor: pointer;
             font-weight: bold;
-            font-size: 20px;
-            padding: 15px;
+            font-size: 22px;
+            padding: 18px;
             flex: 1;
             border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         button.invoice-big-blue-btn:hover { background-color: #0069d9; }
 
@@ -125,7 +127,6 @@
         }
         button.edit-btn:hover { background-color: #0069d9; }
 
-        /* زر حذف صنف من الفاتورة */
         button.delete-item-btn {
             background-color: #dc3545;
             color: white;
@@ -139,7 +140,6 @@
         }
         button.delete-item-btn:hover { background-color: #bd2130; }
 
-        /* زر تصفير اليومية */
         button.reset-day-btn {
             background-color: #dc3545;
             color: white;
@@ -199,17 +199,8 @@
             border: 1px solid #c3e6cb;
         }
         .low-stock { color: red; font-weight: bold; }
-        .hide-toggle {
-            background-color: #6c757d;
-            color: white;
-            font-size: 12px;
-            padding: 5px;
-            width: auto;
-            margin: 5px auto;
-            display: block;
-        }
 
-        /* الفاتورة تملأ الشاشة بالكامل */
+        /* 📄 ستايل الريسيط الطويل والمكبر جداً والموسع */
         .modal {
             display: none;
             position: fixed;
@@ -223,52 +214,121 @@
             overflow-y: auto;
         }
         .modal-content {
-            max-width: 1000px;
+            max-width: 650px; /* تم تكبير العرض الكلي للريسيط */
             margin: 30px auto;
-            padding: 40px;
-            border: 2px solid #333;
-            border-radius: 8px;
+            padding: 35px; /* زيادة الحشوة الداخلية لراحة العين */
+            border: 3px dashed #111;
             background: #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
         .invoice-header {
             text-align: center;
-            border-bottom: 3px dashed #333;
+            border-bottom: 3px dashed #111;
             padding-bottom: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .invoice-socials {
+            font-size: 15px; /* تكبير خط التواصل */
+            color: #333;
+            margin-top: 10px;
+            line-height: 1.8;
+            font-weight: 500;
         }
         .invoice-details {
             margin-bottom: 25px;
-            font-size: 16px;
-            line-height: 1.8;
+            font-size: 16px; /* تكبير تفاصيل الفاتورة */
+            line-height: 2;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 15px;
         }
         .invoice-table {
             width: 100%;
             margin-bottom: 25px;
+            font-size: 16px; /* تكبير خط جدول المنتجات */
+        }
+        .invoice-table th {
+            background-color: #f5f5f5;
+            color: #000;
+            border-bottom: 3px solid #111;
+            font-weight: bold;
+            padding: 12px 8px;
+        }
+        .invoice-table td {
+            padding: 12px 8px;
+            border-bottom: 1px dashed #ddd;
+        }
+        .summary-section {
+            border-top: 2px solid #111;
+            padding-top: 15px;
+            margin-top: 15px;
             font-size: 16px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+        }
+        .policy-section {
+            margin-top: 35px;
+            border-top: 2px dashed #111;
+            padding-top: 20px;
+            font-size: 14px; /* تكبير خط السياسات */
+            color: #222;
+            line-height: 1.8;
+            text-align: right;
+        }
+        .policy-title {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 16px;
+            text-decoration: underline;
+        }
+        .stamp-section {
+            margin-top: 35px;
+            padding: 20px;
+            border: 2px dashed #999;
+            border-radius: 6px;
+            text-align: center;
+            background-color: #fafafa;
+        }
+        .stamp-box {
+            display: inline-block;
+            width: 160px;
+            height: 80px;
+            border: 3px dashed #dc3545; 
+            margin-top: 10px;
+            line-height: 80px;
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 15px;
+            border-radius: 6px;
+            background-color: #fff5f5;
+            transform: rotate(-3deg); /* تأثير الختم الحقيقي */
         }
         .invoice-footer {
             text-align: center;
-            border-top: 3px dashed #333;
-            padding-top: 20px;
             margin-top: 30px;
             font-weight: bold;
+            font-size: 18px;
         }
         .dev-rights {
-            margin-top: 15px;
-            font-size: 13px;
-            color: #777;
-            font-style: italic;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #555;
             text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 12px;
         }
     </style>
 </head>
 <body>
 
-    <!-- شاشة تسجيل الدخول الرئيسي للسيستم -->
+    <!-- شاشة تسجيل الدخول -->
     <div id="loginScreen">
         <div class="login-box">
             <h2>🔐 تسجيل الدخول للسيستم</h2>
-            <p>محل مكياج وطرح المحروسة</p>
+            <p>محل ميك أب وطرح وبرفانات</p>
             <div class="form-group" style="margin-top: 20px;">
                 <label>ادخل كود السر الخاص بك:</label>
                 <input type="password" id="loginPassword" placeholder="••••">
@@ -277,19 +337,19 @@
         </div>
     </div>
 
-    <!-- السيستم الأساسي المحمي -->
+    <!-- السيستم الأساسي -->
     <div id="mainSystem">
-        <h1>سيستم مبيعات وفواتير المحل المتطور 💄🧣</h1>
+        <h1>سيستم مبيعات وفواتير المحل المتطور 💄🧣🔮</h1>
 
         <div class="container">
             
-            <!-- شاشة الكاشير والبيع -->
+            <!-- شاشة الكاشير -->
             <div class="panel">
                 <h2>🛒 شاشة البيع (الكاشير)</h2>
                 
                 <div class="form-group" style="background: #fff3cd; padding: 10px; border-radius: 5px; border: 1px solid #ffeeba;">
                     <label for="customerName" style="color: #856404;">👤 اسم الزبونة (اختياري لجعل الفاتورة باسمها):</label>
-                    <input type="text" id="customerName" placeholder="اكتب اسم الزبونة هنا... (مثال: سارة محمد)">
+                    <input type="text" id="customerName" placeholder="اكتب اسم الزبونة هنا...">
                 </div>
 
                 <div class="form-group">
@@ -320,17 +380,15 @@
                 
                 <hr style="margin-top: 30px;">
                 
-                <h3>📊 أرباح ومبيعات اليوم (محمية)</h3>
-                <button class="hide-toggle" onclick="toggleProfit()">إخفاء / إظهار الأرباح</button>
-                <div id="profitSection" style="display:none;">
+                <h3>📊 أرباح ومبيعات اليوم</h3>
+                <div id="profitSection">
                     <div class="total-box">إجمالي مبيعات اليوم: <span id="daySales">0</span> جنيه</div>
                     <div class="total-box profit-box">صافي الأرباح اليومية: <span id="dayProfit">0</span> جنيه</div>
-                    <!-- زر بدء يوم جديد محمي بباسوردات المستخدمين -->
                     <button class="reset-day-btn" onclick="resetDayStats()">♻️ بدء يوم جديد (تصفير اليومية)</button>
                 </div>
             </div>
 
-            <!-- لوحة التحكم وإدخال البضاعة -->
+            <!-- إدارة المخزن -->
             <div class="panel">
                 <h2>📦 إدارة المخزن وإضافة بضاعة (محمية 🔐)</h2>
                 <form id="productForm">
@@ -338,7 +396,7 @@
                         <label id="formActionTitle">إضافة منتج جديد:</label>
                     </div>
                     <div class="form-group">
-                        <label>باركود المنتج (أو كود سريع مثل TR-01):</label>
+                        <label>باركود المنتج (أو كود سريع مثل PR-01):</label>
                         <input type="text" id="prodBarcode" required>
                     </div>
                     <div class="form-group">
@@ -370,10 +428,8 @@
                             <tr>
                                 <th>الباركود</th>
                                 <th>الاسم</th>
-                                <th>المكسب المتوقع</th>
                                 <th>البيع</th>
                                 <th>العدد</th>
-                                <th>التحكم</th>
                             </tr>
                         </thead>
                         <tbody id="inventoryTable"></tbody>
@@ -384,58 +440,120 @@
         </div>
     </div>
 
-    <!-- نافذة الفاتورة الكاملة التي تملأ الشاشة بالكامل -->
+    <!-- نافذة الفاتورة الكبيرة جداً والموسعة (الريسيط الضخم الجديد) -->
     <div id="invoiceModal" class="modal">
         <div class="modal-content">
+            
+            <!-- رأس الفاتورة الموسع والكبير -->
             <div class="invoice-header">
-                <h1 style="font-size: 36px; margin: 0;">✨ محل مكياج وطرح المحروسة ✨</h1>
-                <p style="font-size: 18px; color: #555;">مبارك عليكم المشتريات يا فندم تنورينا دايماً</p>
+                <h1 style="font-size: 36px; margin: 0 0 8px 0; font-weight: bold; letter-spacing: 2px;">✨ مـــحـــل الــمــوضــة ✨</h1>
+                <p style="font-size: 18px; font-weight: 600; margin: 0; color: #111;">أحدث صيحات الميك أب، الطرح، وأرقى البرفانات الفخمة</p>
+                
+                <div class="invoice-socials">
+                    📞 الرقم الساخن للدعم والطلبات: 01xxxxxxxxx <br>
+                    📸 إنستجرام: @YourStore.Beauty | 🌐 فيسبوك: /YourStorePage <br>
+                    📍 موقعنا: الفرع الرئيسي - خدمة التوصيل الفوري متوفرة لجميع المناطق
+                </div>
             </div>
+            
+            <!-- تفاصيل الفاتورة الموسعة -->
             <div class="invoice-details">
-                <table style="width: 100%; border: none; margin: 0;">
+                <table style="width: 100%; border: none; margin: 0; background: none;">
                     <tr style="background: none;">
-                        <td style="text-align: right; border: none; padding: 5px;"><strong>رقم الفاتورة:</strong> <span id="invId"></span></td>
-                        <td style="text-align: left; border: none; padding: 5px;"><strong>التاريخ والوقت:</strong> <span id="invDate"></span></td>
+                        <td style="text-align: right; border: none; padding: 4px;"><strong>رقم الفاتورة:</strong> <span id="invId" style="font-family: monospace; font-weight: bold; color: #333;"></span></td>
+                        <td style="text-align: left; border: none; padding: 4px;"><strong>التاريخ واليوم:</strong> <span id="invDate"></span></td>
                     </tr>
                     <tr style="background: none;">
-                        <td style="text-align: right; border: none; padding: 5px;"><strong>اسم الزبونة:</strong> <span id="invCustomer" style="color: #007bff; font-weight: bold; font-size: 18px;"></span></td>
-                        <td style="text-align: left; border: none; padding: 5px;"><strong>الكاشير المسؤول:</strong> <span id="invCashier">ساهر</span></td>
+                        <td style="text-align: right; border: none; padding: 4px;"><strong>الزبونة الكريمة:</strong> <span id="invCustomer" style="color: #007bff; font-weight: bold;"></span></td>
+                        <td style="text-align: left; border: none; padding: 4px;"><strong>وقت الإصدار:</strong> <span id="invTime"></span></td>
+                    </tr>
+                    <tr style="background: none;">
+                        <td style="text-align: right; border: none; padding: 4px;"><strong>طريقة الدفع:</strong> <span style="color: green; font-weight: bold; background: #e6f4ea; padding: 2px 8px; border-radius: 4px;">نقداً (كاش / Cash)</span></td>
+                        <td style="text-align: left; border: none; padding: 4px;"><strong>الكاشير المسؤول:</strong> <span id="invCashier" style="font-weight: bold; color: #ff5722;"></span></td>
                     </tr>
                 </table>
             </div>
             
+            <!-- جدول المنتجات بعد التكبير والتوسيع -->
             <table class="invoice-table">
                 <thead>
-                    <tr style="background-color: #343a40; color: white;">
-                        <th>اسم الحاجة</th>
-                        <th>السعر الفردي</th>
-                        <th>العدد والمشتروات</th>
-                        <th>الإجمالي الكلي</th>
+                    <tr>
+                        <th style="text-align: right; width: 45%;">اسم الصنف والنوع</th>
+                        <th style="text-align: center;">السعر</th>
+                        <th style="text-align: center;">العدد</th>
+                        <th style="text-align: center;">الخصم</th>
+                        <th style="text-align: left;">الإجمالي</th>
                     </tr>
                 </thead>
                 <tbody id="invoiceItemsBody"></tbody>
             </table>
 
-            <div class="total-box" style="font-size: 28px; background: #fff3cd; border: 2px solid #ffc107; padding: 20px;">
-                إجمالي الحساب النهائي: <span id="invTotal">0</span> جنيه مصري
+            <!-- قسم ملخص الحساب التفصيلي المطور -->
+            <div class="summary-section">
+                <div class="summary-row">
+                    <span>عدد القطع الإجمالية المشتراة:</span>
+                    <span><span id="totalItemsCount" style="font-weight: bold; color: #007bff;">0</span> قطع</span>
+                </div>
+                <div class="summary-row">
+                    <span>إجمالي الحساب المبدئي:</span>
+                    <span><span id="subTotalSum">0</span> ج.م</span>
+                </div>
+                <div class="summary-row" style="color: #dc3545; font-weight: 500;">
+                    <span>إجمالي الخصومات والعروض السريعة:</span>
+                    <span>0.00 ج.م</span>
+                </div>
+                <div class="summary-row">
+                    <span>الضرائب والرسوم الإضافية:</span>
+                    <span>0.00 (معفى بالكامل)</span>
+                </div>
+                <hr style="border: 0; border-top: 2px solid #111; margin: 8px 0;">
+                <div class="summary-row" style="font-size: 26px; font-weight: bold; color: #000; background: #fff9db; padding: 5px 10px; border-radius: 5px;">
+                    <span>الصافي النهائي المطلوب دفعه:</span>
+                    <span><span id="invTotal">0</span> ج.م</span>
+                </div>
             </div>
 
+            <!-- سياسة الاستبدال والاسترجاع الكبيرة والمعلنة -->
+            <div class="policy-section">
+                <div class="policy-title">📌 سياسة الارتجاع والاستبدال الرسمية للمحل</div>
+                1. يسعدنا استبدال الطرح والإكسسوارات خلال 14 يوماً من تاريخ الفاتورة بشرط أن تكون بحالتها الأصلية بالعلبة والتايج ولم تستخدم.<br>
+                2. حرصاً على الصحة العامة وسلامة عميلاتنا، **يمنع نهائياً** استرجاع أو استبدال أدوات الميك أب والبرفانات ومستحضرات التجميل بعد فتح غلافها أو خروجها من باب المحل.<br>
+                3. يجب تقديم هذا الريسيط الأصلي والمختوم من الإدارة لإتمام أي عملية داخل الفرع.<br>
+                4. شكراً لزيارتكم الكريمة، وثقتكم هي سر نجاحنا وتطورنا الدائم!
+            </div>
+
+            <!-- [قسم الختم والتوقيع الكبير] -->
+            <div class="stamp-section">
+                <table style="width:100%; border:none; background:none;">
+                    <tr style="background:none;">
+                        <td style="border:none; text-align:center; font-weight:bold; color:#222; font-size: 15px; width: 50%;">
+                            ✍️ توقيع واستلام الكاشير
+                            <br><br>
+                            <span id="cashierSignName" style="color:#007bff; font-size:18px; border-bottom: 2px solid #333; padding-bottom: 4px; font-weight: bold;"></span>
+                        </td>
+                        <td style="border:none; text-align:center; font-weight:bold; color:#222; font-size: 15px; width: 50%;">
+                            💮 خـتـم الـمـعـايـنـة والإدارة
+                            <br>
+                            <div class="stamp-box">ختم المحل الرسمي</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- أزرار التحكم بالفاتورة الكبيرة -->
             <div class="invoice-footer">
-                <p style="font-size: 16px;">شكراً لزيارتكم! البضاعة المباعة تستبدل خلال 14 يوم بشرط عدم الاستخدام.</p>
+                <p style="margin: 0; font-size: 16px; color: #000; letter-spacing: 1px;">✨ نورتونا ونتمنى لكم يوماً سعيداً ومتألقاً ✨</p>
                 
                 <div class="invoice-buttons-container">
-                    <button class="invoice-big-blue-btn" onclick="backToEditInvoice()">✏️ تعديل الفاتورة</button>
-                    <button class="invoice-big-yellow-btn" onclick="confirmAndCloseInvoice()">🛒 إنهاء وطباعة - شراء</button>
+                    <button class="invoice-big-blue-btn" onclick="backToEditInvoice()">✏️ تعديل ومراجعة</button>
+                    <button class="invoice-big-yellow-btn" onclick="confirmAndCloseInvoice()">🖨️ طباعة وإغلاق الفاتورة</button>
                 </div>
-                
-                <!-- سطر الحقوق الخاص بك -->
-                <div class="dev-rights">⚙️ حقوق الطبع محفوظة لدى المبرمج ساهر © 2026</div>
+                <div class="dev-rights">⚙️ نظام إدارة المبيعات والمخازن الذكي - تطوير المبرمج ساهر © 2026</div>
             </div>
         </div>
     </div>
 
     <script>
-        // تحديث الباسوردات حسب طلبك: ساهر 2323 واللي بعده 2424 وهكذا بالتسلسل
         const users = {
             "2323": "ساهر",
             "2424": "أحمد",
@@ -444,12 +562,29 @@
         };
 
         let currentCashierName = "ساهر";
-
-        // الحفاظ على المخزن نضيف تماماً من أي داتا تجريبية قديمة
-        localStorage.removeItem('shopInventory');
         
-        let inventory = {};
-        let salesStats = JSON.parse(localStorage.getItem('shopSales')) || { totalSales: 0, totalProfit: 0 };
+        const defaultInventory = {
+            "MK-01": { name: "روج مايت سينما سحري", cost: 30, price: 50, qty: 20 },
+            "TR-01": { name: "طرحة كريب شيفون أسود", cost: 40, price: 75, qty: 15 },
+            "PR-01": { name: "برفان سكندال حريمي 100مل", cost: 120, price: 220, qty: 8 },
+            "PR-02": { name: "برفان سي جورجيو أرماني", cost: 150, price: 280, qty: 5 }
+        };
+
+        let inventory = JSON.parse(localStorage.getItem('shopInventory')) || {};
+        
+        if (Object.keys(inventory).length === 0) {
+            inventory = { ...defaultInventory };
+        } else {
+            for (let barcode in inventory) {
+                if (!defaultInventory[barcode]) { delete inventory[barcode]; }
+            }
+            for (let barcode in defaultInventory) {
+                if (!inventory[barcode]) { inventory[barcode] = defaultInventory[barcode]; }
+            }
+        }
+        localStorage.setItem('shopInventory', JSON.stringify(inventory));
+
+        let salesStats = { totalSales: 0, totalProfit: 0 };
         let currentCart = [];
 
         updateInventoryTable();
@@ -460,21 +595,23 @@
             const pass = document.getElementById('loginPassword').value;
             if (users[pass]) {
                 currentCashierName = users[pass]; 
+                
+                alert(`✨ أهلاً بك يا ${currentCashierName} في سيستم مبيعات المحل المتكامل! وردية سعيدة وموفقة إن شاء الله 🥳🔒`);
+                
                 document.getElementById('invCashier').innerText = currentCashierName;
+                document.getElementById('cashierSignName').innerText = currentCashierName; 
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('mainSystem').style.display = 'block';
                 document.getElementById('scanInput').focus();
-                alert(`أهلاً بك يا ${currentCashierName} 👋 تم تسجيل الدخول بنجاح.`);
             } else {
-                alert('❌ الباسورد غلط! غير مسجل بقائمة المستخدمين.');
+                alert('❌ الباسورد غلط!');
             }
         }
 
         function updateQuickButtonsMenu() {
             const container = document.getElementById('quickButtonsContainer');
             container.innerHTML = ''; 
-            const keys = Object.keys(inventory).slice(0, 4);
-            keys.forEach(barcode => {
+            Object.keys(inventory).forEach(barcode => {
                 const btn = document.createElement('button');
                 btn.className = 'quick-btn';
                 btn.innerText = `🛍️ ${inventory[barcode].name}`;
@@ -485,13 +622,6 @@
 
         document.getElementById('productForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
-            const checkPass = prompt('🔐 العملية محمية! اكتب الباسورد الخاص بك لحفظ البيانات في المخزن:');
-            if (!users[checkPass]) {
-                alert('❌ الباسورد غلط أو غير مصرح لك! تم إلغاء العملية.');
-                return;
-            }
-
             const barcode = document.getElementById('prodBarcode').value.trim();
             const name = document.getElementById('prodName').value.trim();
             const cost = parseFloat(document.getElementById('prodCost').value);
@@ -501,42 +631,13 @@
             inventory[barcode] = { name, cost, price, qty };
             localStorage.setItem('shopInventory', JSON.stringify(inventory));
             
-            alert(`✅ تم الحفظ بنجاح بواسطة الكاشير: ${users[checkPass]}`);
             resetProductForm();
             updateInventoryTable();
             updateQuickButtonsMenu(); 
         });
 
-        function startEditProduct(barcode) {
-            const checkPass = prompt('🔐 تعديل البضاعة محمي! اكتب الباسورد أولاً للدخول لوضع التعديل:');
-            if (!users[checkPass]) {
-                alert('❌ الباسورد غلط! غير مسموح بالتعديل.');
-                return;
-            }
-
-            const item = inventory[barcode];
-            document.getElementById('prodBarcode').value = barcode;
-            document.getElementById('prodBarcode').disabled = true; 
-            document.getElementById('prodName').value = item.name;
-            document.getElementById('prodCost').value = item.cost;
-            document.getElementById('prodPrice').value = item.price;
-            document.getElementById('prodQty').value = item.qty;
-            
-            document.getElementById('formActionTitle').innerText = "📝 تعديل بيانات المنتج الحالي:";
-            document.getElementById('submitFormBtn').innerText = "تأكيد التعديل وحفظ البيانات";
-            document.getElementById('submitFormBtn').className = "edit-btn"; 
-            document.getElementById('cancelEditBtn').style.display = "block";
-            
-            document.getElementById('productForm').scrollIntoView({ behavior: 'smooth' });
-        }
-
         function resetProductForm() {
             document.getElementById('productForm').reset();
-            document.getElementById('prodBarcode').disabled = false;
-            document.getElementById('formActionTitle').innerText = "إضافة منتج جديد:";
-            document.getElementById('submitFormBtn').innerText = "حفظ المنتج في المخزن";
-            document.getElementById('submitFormBtn').className = ""; 
-            document.getElementById('cancelEditBtn').style.display = "none";
             document.getElementById('scanInput').focus();
         }
 
@@ -548,9 +649,7 @@
             }
         });
 
-        function quickSale(barcode) {
-            processSale(barcode);
-        }
+        function quickSale(barcode) { processSale(barcode); }
 
         function processSale(barcode) {
             if (inventory[barcode]) {
@@ -563,7 +662,7 @@
                     alert(`عفواً! صنف (${inventory[barcode].name}) خلص من المخزن.`);
                 }
             } else {
-                alert('الباركود ده مش متسجل في المخزن! يرجى إدخاله أولاً.');
+                alert('الباركود ده مش متسجل في المخزن!');
             }
         }
 
@@ -607,16 +706,11 @@
                 const item = inventory[barcode];
                 const row = document.createElement('tr');
                 const qtyClass = item.qty <= 2 ? 'low-stock' : '';
-                const estimatedProfit = item.price - item.cost;
                 row.innerHTML = `
                     <td><code>${barcode}</code></td>
                     <td>${item.name}</td>
-                    <td style="color:green; font-weight:bold;">${estimatedProfit} ج</td>
                     <td>${item.price} ج</td>
                     <td class="${qtyClass}">${item.qty}</td>
-                    <td>
-                        <button class="edit-btn" style="padding: 5px 10px; font-size:13px; margin:0;" onclick="startEditProduct('${barcode}')">تعديل 📝</button>
-                    </td>
                 `;
                 tbody.appendChild(row);
             }
@@ -632,9 +726,7 @@
                     <td>${item.name}</td>
                     <td>${item.price} ج</td>
                     <td>${item.qty}</td>
-                    <td>
-                        <button class="delete-item-btn" onclick="removeOneFromCart('${item.barcode}')">إزالة ❌</button>
-                    </td>
+                    <td><button class="delete-item-btn" onclick="removeOneFromCart('${item.barcode}')">❌</button></td>
                 `;
                 tbody.appendChild(row);
                 total += (item.price * item.qty);
@@ -644,35 +736,32 @@
 
         function openInvoiceModal() {
             if(currentCart.length === 0) {
-                alert('الفاتورة فاضية! أعمل سكان للبضاعة الأول.');
+                alert('الفاتورة فاضية!');
                 return;
             }
-            
             let billTotal = 0;
+            let totalItems = 0;
             let invoiceItemsHtml = '';
-
+            
             currentCart.forEach(item => {
                 let itemTotal = item.price * item.qty;
                 billTotal += itemTotal;
-                
-                invoiceItemsHtml += `
-                    <tr>
-                        <td style="font-weight:bold;">${item.name}</td>
-                        <td>${item.price} جنيه</td>
-                        <td>${item.qty} قطع</td>
-                        <td style="font-weight:bold;">${itemTotal} جنيه</td>
-                    </tr>
-                `;
+                totalItems += item.qty;
+                invoiceItemsHtml += `<tr><td style="text-align:right; font-weight:500;">${item.name}</td><td style="text-align:center;">${item.price} ج</td><td style="text-align:center;">${item.qty}</td><td style="text-align:center;">0.00</td><td style="text-align:left;"><strong>${itemTotal} ج</strong></td></tr>`;
             });
-
-            let cName = document.getElementById('customerName').value.trim() || "زبونة كريمـة";
+            
+            let cName = document.getElementById('customerName').value.trim() || "زبونة كريمة";
             document.getElementById('invCustomer').innerText = cName;
-            document.getElementById('invId').innerText = 'INV-' + Math.floor(10000 + Math.random() * 90000);
-            document.getElementById('invDate').innerText = new Date().toLocaleString('ar-EG');
+            document.getElementById('invId').innerText = 'INV-' + Math.floor(100000 + Math.random() * 900000);
+            
+            let now = new Date();
+            document.getElementById('invDate').innerText = now.toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('invTime').innerText = now.toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+            
             document.getElementById('invoiceItemsBody').innerHTML = invoiceItemsHtml;
+            document.getElementById('totalItemsCount').innerText = totalItems;
+            document.getElementById('subTotalSum').innerText = billTotal;
             document.getElementById('invTotal').innerText = billTotal;
-            document.getElementById('invCashier').innerText = currentCashierName;
-
             document.getElementById('invoiceModal').style.display = 'block';
         }
 
@@ -684,23 +773,19 @@
         function confirmAndCloseInvoice() {
             let billTotal = 0;
             let billProfit = 0;
-
             currentCart.forEach(item => {
                 billTotal += (item.price * item.qty);
                 billProfit += ((item.price - item.cost) * item.qty);
             });
-
             salesStats.totalSales += billTotal;
             salesStats.totalProfit += billProfit;
-            localStorage.setItem('shopSales', JSON.stringify(salesStats));
             updateSalesStats();
-
             document.getElementById('invoiceModal').style.display = 'none';
             document.getElementById('customerName').value = '';
             currentCart = [];
             updateCartTable();
             document.getElementById('scanInput').focus();
-            alert(`💸 تم تسجيل عملية الشراء وإضافتها للأرباح بواسطة الكاشير: ${currentCashierName}`);
+            alert(`🖨️ تم إرسال أمر الطباعة بنجاح وقفل الفاتورة.`);
         }
 
         function updateSalesStats() {
@@ -708,48 +793,23 @@
             document.getElementById('dayProfit').innerText = salesStats.totalProfit;
         }
 
-        function toggleProfit() {
-            const sec = document.getElementById('profitSection');
-            if (sec.style.display === 'none') {
-                const checkPass = prompt('🔐 لرؤية صافي أرباح المحل اليومية، ادخل كود الكاشير السرّي:');
-                if (users[checkPass]) {
-                    sec.style.display = 'block';
-                    alert(`مرحباً يا ${users[checkPass]}، تم إظهار الأرباح المستترة.`);
-                } else {
-                    alert('❌ الكود السرّي غلط!');
-                }
-            } else {
-                sec.style.display = 'none';
-            }
-        }
-
         function resetDayStats() {
-            const checkPass = prompt('⚠️ تحذير: سيتم تصفير جميع الأرباح والمبيعات الحالية للبدء من جديد. ادخل الباسورد الخاص بك كـ كاشير لتأكيد الهوية:');
-            
-            if (users[checkPass]) {
-                let cashierWhoReset = users[checkPass]; 
-                
-                salesStats.totalSales = 0;
-                salesStats.totalProfit = 0;
-                localStorage.setItem('shopSales', JSON.stringify(salesStats));
-                updateSalesStats();
-                
-                alert(`♻️ تم تصفير إحصائيات اليومية بنجاح وبدء وردية جديدة!\n👤 المسؤول عن التصفير الحالي: الكاشير (${cashierWhoReset})`);
-            } else {
-                alert('❌ الباسورد غلط أو غير مسجل! تم إلغاء تصفير اليومية.');
-            }
+            salesStats.totalSales = 0;
+            salesStats.totalProfit = 0;
+            updateSalesStats();
+            alert('♻️ تم بدء يوم جديد وتصفير العدادات.');
         }
 
         function showLowStockReport() {
-            let report = "📋 أصناف قربت تخلص ومحتاجين نجيب منها:\n\n";
+            let report = "📋 أصناف قربت تخلص:\n\n";
             let found = false;
             for (let barcode in inventory) {
                 if (inventory[barcode].qty <= 2) {
-                    report += `- ${inventory[barcode].name} (المتبقي: ${inventory[barcode].qty} قطع)\n`;
+                    report += `- ${inventory[barcode].name} (المتبقي: ${inventory[barcode].qty})\n`;
                     found = true;
                 }
             }
-            if (!found) report = "🎉 المخزن تمام ومفيش أي نواقص حالياً!";
+            if (!found) report = "🎉 المخزن تمام ومفيش نواقص حالياً!";
             alert(report);
         }
     </script>
